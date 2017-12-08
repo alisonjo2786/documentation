@@ -4,7 +4,8 @@ description: Learn how to manually migrate a Drupal or WordPress site to Pantheo
 tags: [migratemanual]
 categories: []
 ---
-Manually migrate your site to Pantheon when any of the following apply:
+
+The following conditions can necessitate a manual migration to Pantheon:
 
 * **Large Drupal Site Archive**: Site archive is greater than the guided migration import limit of 500MB.
 * **Preserve Git History**: You'd like to preserve your site's existing Git commit history.
@@ -12,25 +13,56 @@ Manually migrate your site to Pantheon when any of the following apply:
 * **Plugin install unavailable on existing WordPress site**: For example, if your existing site is hosted on WordPress.com, you'll be unable to install the Pantheon Migrations plugin.
 * **Debug Failed Migration**: It can be helpful to migrate your code, database, and files separately to help debug edge-cases that are not supported through guided migration.
 
-For guided migration, see [Migrate Sites to Pantheon](/docs/migrate).
+If your current configuration doesn't fall into any of these categories, we strongly suggest you attempt a [guided migration](/docs/migrate) first.
 
-## Step 1: Create a New Pantheon Site
+## Create a New Pantheon Site
 
 From your Pantheon Dashboard:
 
 1. Choose **Migrate Existing Site**.
-2. Enter your current website URL.
-3. Choose your site type: Drupal 7, Drupal 8, WordPress, or a [Custom Upstream](/docs/custom-upstream/).
-4. Click **Continue**.
-5. Name your new Pantheon site.
-6. Select an organization for the site (optional).
-7. Click **Create Site**.
-8. **WordPress**: Click **Migrate Manually** and select **Yes** in the confirmation box.
 
-   **Drupal**: Find the line "If your site archive is larger than 500MB it must be **manually migrated**." Click the link, then select **Yes** in the confirmation box.
+    ![The Migrate Existing Site Button](/source/docs/assets/images/dashboard/migrate-existing-site.png)
+
+2. Enter your current website URL, choose your site type (Drupal 7, Drupal 8, or WordPress,), and click **Continue**:
+
+    ![Choose the Starting State for your Migrated Site](/source/docs/assets/images/dashboard/migrate-step2.png)
+
+3. Name your new Pantheon site, select an organization for the site (optional), and click **Create Site**:
+
+    ![Name the Migrated Site and Optionally Choose an Organization](/source/docs/assets/images/dashboard/migrate-step3.png)
+
+4.  The manual migration process differs from this point on based on your selection of WordPress or Drupal:
+
+   <!-- Nav tabs -->
+   <ul class="nav nav-tabs" role="tablist">
+      <!-- Active tab -->
+      <li id="tab-1-id" role="presentation" class="active"><a href="#tab-1-anchor" aria-controls="tab-1-anchor" role="tab" data-toggle="tab">WordPress</a></li>
+
+      <!-- 2nd Tab Nav -->
+      <li id="tab-2-id" role="presentation"><a href="#tab-2-anchor" aria-controls="tab-2-anchor" role="tab" data-toggle="tab">Drupal</a></li>
+
+   </ul>
+
+   <!-- Tab panes -->
+   <div class="tab-content">
+     <!-- Active pane content -->
+     <div role="tabpanel" class="tab-pane active" id="tab-1-anchor" markdown="1">
+     Click **Manually Migrate Your Site** and select **Yes** in the confirmation box.:
+
+     ![Choose Manual WordPress Migration](/source/docs/assets/images/dashboard/migrate-manual-wp.png)
+      </div>
+
+     <!-- 2nd pane content -->
+     <div role="tabpanel" class="tab-pane" id="tab-2-anchor" markdown="1">
+     **Drupal**: Find the line "If your site archive is larger than 500MB it must be **manually migrated**." Click the link, then select **Yes** in the confirmation box.
+
+     ![Choose Manual Drupal Migration](/source/docs/assets/images/dashboard/migrate-manual-drops.png)
+    </div>
+
+   </div> 
 
 
-## Step 2: Import your Code
+## Import your Code
 
 Your **code** is all custom and contributed modules or plugins, themes, and libraries. Code **does not** include files not under version control, like images uploaded to `sites/default/files` or `wp-content/uploads`.
 
