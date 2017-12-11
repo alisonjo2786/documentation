@@ -64,22 +64,126 @@ From your Pantheon Dashboard:
 
 ## Import your Code
 
-Your **code** is all custom and contributed modules or plugins, themes, and libraries. Code **does not** include files not under version control, like images uploaded to `sites/default/files` or `wp-content/uploads`.
+Your **code** is all custom and contributed modules or plugins, themes, and libraries. Code *does not* include files not under version control, like images uploaded to `sites/default/files` or `wp-content/uploads`.
 
-Please be sure to check the contents of the codebase for existing `.gitignore` files.  To be compatible with the platform, using the Pantheon version is advised.  Otherwise, attempts to import files to restricted paths could break the import process.
+### Import With Git
 
-See the platform-provided versions for [Wordpress](https://github.com/pantheon-systems/WordPress/blob/master/.gitignore), [Drupal 7](https://github.com/pantheon-systems/drops-7/blob/master/.gitignore), and [Drupal 8](https://github.com/pantheon-systems/drops-8).
+If your codebase is already under version control with Git, and you wish to preserve your commit history. If you're not already under version control, you can still use this method to import your code, our skip down to [Import With SFTP](#import-with-sftp).
+
+Before you begin, we strongly suggest you first [configure SSH keys](/source/docs/ssh-keys) between your local computer and Pantheon.
+
+<div class="alert alert-info" role="alert">
+  <h4 class="info">Note</h4>
+  <p markdown="1">Check the contents of your current codebase for existing `.gitignore` files.  To be compatible with the platform, using the Pantheon version is advised.  Otherwise, attempts to import files to restricted paths could break the import process. See the platform-provided versions for [Wordpress](https://github.com/pantheon-systems/WordPress/blob/master/.gitignore), [Drupal 7](https://github.com/pantheon-systems/drops-7/blob/master/.gitignore), and [Drupal 8](https://github.com/pantheon-systems/drops-8).
+
+
+</p>
+</div>
+
+1. Navigate to your existing site's code directory in a local terminal. If your existing code is not version controlled with Git, create a repository and add an initial commit:
+
+    ```bash
+    git init
+    git add .
+    git commit -m "initial commit"
+    ```
+
+2. From the Dev environment of the Site Dashboard, set the site's connection mode to [git](/docs/git).
+
+3. Copy the SSH URL for the site repository, found in the <a href="/docs/git/#step-2-copy-the-git-clone-command" data-proofer-ignore>clone command</a>. *Do not copy* `git clone` or the site name.
+
+  If you're familiar with [Terminus](/source/docs/termiunus), you can use it to retrieve the URL as well. Replace `<sitename>` with the Site Name created earlier:
+
+  ```bash
+  terminus connection:info <sitename>.dev --field=git_url
+  ```
+
+  The URL should look similar to the following:
+
+  ```bash
+  ssh://codeserver.dev.{site-id}@codeserver.dev.{site-id}.drush.in:2222/~/repository.git
+  ```
+
+4. Add Pantheon as a remote destination, replacing `<ssh_url>` with the SSH URL copied in step 3:
+
+  ```bash
+  git remote add pantheon <ssh_url>
+  ```
+
+5. **Drupal only**: To preserve the database connection credentials for a site built on a local development environment, and to exclude them from version control, move your `settings.php` file to `settings.local.php` and add it to `.gitignore` so that it will be ignored by Git and included from Pantheon's `settings.php` when working on your site locally. Make sure that you can modify it, and restore the protections after the move:
+
+  ```bash
+  chmod u+w sites/default/{.,settings.php}
+  mv sites/default/{settings.php,settings.local.php}
+  chmod u-w sites/default/{settings.local.php,.}
+  ```
+ Drupal 8 sites running on Pantheon come with a bundled `settings.php` that includes the `settings.local.php` file, so no additional steps are required. However, sites running Drupal 6 or 7 must add a `settings.php` file that includes `settings.local.php`, as this file is not bundled on Pantheon.
+
+6. Select the appropriate version of Git running on your local machine (`git --version`), then pull in the upstream's code (which may have Pantheon-specific optimizations) to your existing site's codebase:
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+     <li role="presentation" class="active"><a href="#28-step6" aria-controls="28-step6" role="tab" data-toggle="tab">Git 2.8 and Below</a></li>
+     <li role="presentation"><a href="#29-step6" aria-controls="29-step6" role="tab" data-toggle="tab">Git 2.9 and Above</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+     <div role="tabpanel" class="tab-pane active" id="28-step6">
+     <pre><code class="bash hljs">git pull --no-rebase --squash -Xtheirs pantheon master</code></pre>
+    </div>
+     <div role="tabpanel" class="tab-pane" id="29-step6">
+      <pre><code class="bash hljs">git pull --no-rebase --squash -Xtheirs pantheon master --allow-unrelated-histories</code></pre>
+     </div>
+    </div>
+
+  The output will resemble:
+
+  ```bash
+  Squash commit -- not updating HEAD
+  Automatic merge went well; stopped before committing as requested
+  ```
+
+  If you haven't already configured [SSH Keys](/source/docs/ssh-lkeys), authenticate using your Pantheon Dashboard credentials when prompted for a password.
+
+7. Run git commit to prepare the Pantheon core merge for pushing to the repository:
+
+  ```bash
+  git commit -m "Adding Pantheon core files"
+  ```
+8. Align your local branch with its remote counterpart on Pantheon:
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+     <li role="presentation" class="active"><a href="#28-step8" aria-controls="28-step8" role="tab" data-toggle="tab">Git 2.8 and Below</a></li>
+     <li role="presentation"><a href="#29-step8" aria-controls="29-step8" role="tab" data-toggle="tab">Git 2.9 and Above</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+     <div role="tabpanel" class="tab-pane active" id="28-step8">
+     <pre><code class="bash hljs">git pull pantheon master --no-rebase</code></pre>
+    </div>
+     <div role="tabpanel" class="tab-pane" id="29-step8">
+      <pre><code class="bash hljs">git pull pantheon master --no-rebase --allow-unrelated-histories</code></pre>
+     </div>
+    </div>
+
+9. Push your newly merged codebase up to your Pantheon site repository:
+
+    ```bash
+    git push pantheon master
+    ```
+
+10. Go to the Code tab of your Dev environment on the Site Dashboard. You will see your site's pre-existing code commit history and the most recent commit adding Pantheon's core files.
+
+
+
+
 
 
 You can use either SFTP or Git to import your code. If you'd like to retain existing Git History, then please see [Migrating Sites to Pantheon: Preserve Existing Git History](/docs/migrate-preserve-history).
 
 ### Import Code via SFTP
 Find the **Connection Info** from the Dev environment and use an SFTP client to add your code. You'll want to only add plugins, modules, and themes and not overwrite WordPress or Drupal core. For more information, see [Developing on Pantheon Directly with SFTP Mode](/docs/sftp/).
-
-### Import Code via Git
-Clone the Pantheon site repository and copy your site's plugins, modules and themes, commit, and push. Do not overwrite WordPress or Drupal core. For more information, see [Starting with Git](/docs/git/).
-
-If you'd like to retain existing Git History, see [Migrating Sites to Pantheon: Preserve Existing Git History](/docs/migrate-preserve-history).
 
 
 ## Step 3: Add Database
