@@ -70,7 +70,7 @@ Your **code** is all custom and contributed modules or plugins, themes, and libr
 
 If your codebase is already under version control with Git, and you wish to preserve your commit history. If you're not already under version control, you can still use this method to import your code, our skip down to [Import With SFTP](#import-code-with-sftp).
 
-Before you begin, we strongly suggest you first [configure SSH keys](/source/docs/ssh-keys) between your local computer and Pantheon.
+Before you begin, we strongly suggest you first [configure SSH keys](/docs/ssh-keys) between your local computer and Pantheon.
 
 <div class="alert alert-info" role="alert">
   <h4 class="info">Note</h4>
@@ -90,7 +90,7 @@ Before you begin, we strongly suggest you first [configure SSH keys](/source/doc
 
 3. Copy the SSH URL for the site repository, found in the <a href="/docs/git/#step-2-copy-the-git-clone-command" data-proofer-ignore>clone command</a>. *Do not copy* `git clone` or the site name.
 
-  If you're familiar with [Terminus](/source/docs/termiunus), you can use it to retrieve the URL as well. Replace `<sitename>` with the Site Name created earlier:
+  If you're familiar with [Terminus](/docs/terminus), you can use it to retrieve the URL as well. Replace `<sitename>` with the Site Name created earlier:
 
   ```bash
   terminus connection:info <sitename>.dev --field=git_url
@@ -141,7 +141,7 @@ Before you begin, we strongly suggest you first [configure SSH keys](/source/doc
   Automatic merge went well; stopped before committing as requested
   ```
 
-  If you haven't already configured [SSH Keys](/source/docs/ssh-lkeys), authenticate using your Pantheon Dashboard credentials when prompted for a password.
+  If you haven't already configured [SSH Keys](/docs/ssh-keys), authenticate using your Pantheon Dashboard credentials when prompted for a password.
 
 7. Run git commit to prepare the Pantheon core merge for pushing to the repository:
 
