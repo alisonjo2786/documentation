@@ -59,7 +59,7 @@ From your Pantheon Dashboard:
      ![Choose Manual Drupal Migration](/source/docs/assets/images/dashboard/migrate-manual-drops.png)
     </div>
 
-   </div> 
+   </div>
 
 
 ## Import your Code
@@ -299,7 +299,6 @@ Anyone wishing to migrate a Drupal 6 site to Pantheon can work with one of our L
 
 ## See Also
 * <a href="https://pantheon.io/resources/quickstart-guide-migrating-wordpress-site" target="blank">The Quickstart Guide to Migrating a WordPress Site <span class="glyphicons glyphicons-new-window-alt"></span></a>
-* [Migrate Sites to Pantheon: Troubleshooting](/docs/migrate-troubleshooting)
 * [Developing on Pantheon Directly with SFTP Mode](/docs/sftp/)
 * [Starting with Git](/docs/git/)
 * [Accessing MySQL Databases](/docs/mysql-access/)
