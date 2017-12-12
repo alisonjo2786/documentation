@@ -93,7 +93,7 @@ Pantheon provides a guided path for migrating existing sites to the platform, wh
   </div>
 </div>
 
-## Manually Migrated
+## Manually Migrate
 Manually migrate your site to Pantheon when any of the following apply:
 
 * **Large Drupal Site Archive**: Site archive is greater than the guided migration import limit of 500MB.
