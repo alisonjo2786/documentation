@@ -6,6 +6,8 @@ categories: [wordpress]
 ---
 In most situations, you shouldn't need to manually export your WordPress site in order to migrate to Pantheon. Follow the recommended process within [Migrate Sites to Pantheon](/docs/migrate/), which uses the Pantheon Migration plugin.		
 
+The following scenarios are exceptions to the recommended process and require [manually migrating](https://pantheon.io/docs/migrate-manual/) the site:		
+
 * **Large Drupal Site Archive**: Site archive is greater than the guided migration import limit of 500MB.
 * **Preserve Git History**: You'd like to preserve your site's existing Git commit history.
 * **[WordPress Site Networks](/docs/migrate-wordpress-site-networks/)**
