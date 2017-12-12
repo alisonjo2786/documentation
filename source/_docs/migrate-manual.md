@@ -184,17 +184,17 @@ The codebase hierarchy for WordPress and Drupal is:
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
   <!-- Active tab -->
-  <li id="tab-1-id" role="presentation" class="active"><a href="#tab-1-anchor" aria-controls="tab-1-anchor" role="tab" data-toggle="tab">WordPress</a></li>
+  <li id="wp-code-id" role="presentation" class="active"><a href="#wp-code" aria-controls="wp-code" role="tab" data-toggle="tab">WordPress</a></li>
 
   <!-- 2nd Tab Nav -->
-  <li id="tab-2-id" role="presentation"><a href="#tab-2-anchor" aria-controls="tab-2-anchor" role="tab" data-toggle="tab">Drupal</a></li>
+  <li id="drops-code-id" role="presentation"><a href="#drops-code" aria-controls="drops-code" role="tab" data-toggle="tab">Drupal</a></li>
 
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
   <!-- Active pane content -->
-  <div role="tabpanel" class="tab-pane active" id="tab-1-anchor" markdown="1">
+  <div role="tabpanel" class="tab-pane active" id="wp-code" markdown="1">
 ```php
 ├── index.php
 ├── wp-activate.php
@@ -221,7 +221,7 @@ The codebase hierarchy for WordPress and Drupal is:
  </div>
 
   <!-- 2nd pane content -->
-  <div role="tabpanel" class="tab-pane" id="tab-2-anchor" markdown="1">
+  <div role="tabpanel" class="tab-pane" id="drops-code" markdown="1">
 ```php
 ├── includes
 ├── index.php
