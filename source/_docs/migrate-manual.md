@@ -68,15 +68,13 @@ Your **code** is all custom and contributed modules or plugins, themes, and libr
 
 ### Import With Git
 
-If your codebase is already under version control with Git, and you wish to preserve your commit history. If you're not already under version control, you can still use this method to import your code, our skip down to [Import With SFTP](#import-with-sftp).
+If your codebase is already under version control with Git, and you wish to preserve your commit history. If you're not already under version control, you can still use this method to import your code, our skip down to [Import With SFTP](#import-code-with-sftp).
 
 Before you begin, we strongly suggest you first [configure SSH keys](/source/docs/ssh-keys) between your local computer and Pantheon.
 
 <div class="alert alert-info" role="alert">
   <h4 class="info">Note</h4>
   <p markdown="1">Check the contents of your current codebase for existing `.gitignore` files.  To be compatible with the platform, using the Pantheon version is advised.  Otherwise, attempts to import files to restricted paths could break the import process. See the platform-provided versions for [Wordpress](https://github.com/pantheon-systems/WordPress/blob/master/.gitignore), [Drupal 7](https://github.com/pantheon-systems/drops-7/blob/master/.gitignore), and [Drupal 8](https://github.com/pantheon-systems/drops-8).
-
-
 </p>
 </div>
 
@@ -161,7 +159,7 @@ Before you begin, we strongly suggest you first [configure SSH keys](/source/doc
     <div class="tab-content">
      <div role="tabpanel" class="tab-pane active" id="28-step8">
      <pre><code class="bash hljs">git pull pantheon master --no-rebase</code></pre>
-    </div>
+     </div>
      <div role="tabpanel" class="tab-pane" id="29-step8">
       <pre><code class="bash hljs">git pull pantheon master --no-rebase --allow-unrelated-histories</code></pre>
      </div>
@@ -176,17 +174,80 @@ Before you begin, we strongly suggest you first [configure SSH keys](/source/doc
 10. Go to the Code tab of your Dev environment on the Site Dashboard. You will see your site's pre-existing code commit history and the most recent commit adding Pantheon's core files.
 
 
+### Import Code with SFTP
+If you've already imported your code using git in the section above, you can skip to the [Add Database](#add-database) section.
+
+If you already have the codebase on your local computer, you can upload it directly over SFTP. Find the **Connection Info** from the Dev environment and use an SFTP client to add your code. You'll want to only add plugins, modules, and themes and not overwrite WordPress or Drupal core. For more information, see [Developing on Pantheon Directly with SFTP Mode](/docs/sftp/).
+
+The codebase hierarchy for WordPress and Drupal is:
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <!-- Active tab -->
+  <li id="tab-1-id" role="presentation" class="active"><a href="#tab-1-anchor" aria-controls="tab-1-anchor" role="tab" data-toggle="tab">WordPress</a></li>
+
+  <!-- 2nd Tab Nav -->
+  <li id="tab-2-id" role="presentation"><a href="#tab-2-anchor" aria-controls="tab-2-anchor" role="tab" data-toggle="tab">Drupal</a></li>
+
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <!-- Active pane content -->
+  <div role="tabpanel" class="tab-pane active" id="tab-1-anchor" markdown="1">
+```php
+├── index.php
+├── wp-activate.php
+├── wp-config.php
+├── wp-comments-post.php
+├── wp-blog-header.php
+├── wp-admin
+├── wp-cron.php
+├── wp-load.php
+├── wp-links-opml.php
+├── wp-includes
+├── xmlrpc.php
+├── wp-trackback.php
+├── wp-signup.php
+├── wp-settings.php
+├── wp-mail.php
+├── wp-login.php
+├── wp-content
+    ├── index.php
+    ├── mu-plugins
+    ├── themes
+    ├── plugins 
+```
+ </div>
+
+  <!-- 2nd pane content -->
+  <div role="tabpanel" class="tab-pane" id="tab-2-anchor" markdown="1">
+```php
+├── includes
+├── index.php
+├── misc
+├── modules
+├── profiles
+├── scripts
+├── sites
+    └── all
+       ├── modules
+       └── themes
+    └── default
+       └── settings.php
+└── themes
+```
+  </div>
+</div>
+
+<div class="alert alert-info" role="alert">
+  <h4 class="info">Note</h4>
+  <p markdown="1">Check the contents of your current codebase for existing `.gitignore` files.  To be compatible with the platform, using the Pantheon version is advised.  Otherwise, attempts to import files to restricted paths could break the import process. See the platform-provided versions for [Wordpress](https://github.com/pantheon-systems/WordPress/blob/master/.gitignore), [Drupal 7](https://github.com/pantheon-systems/drops-7/blob/master/.gitignore), and [Drupal 8](https://github.com/pantheon-systems/drops-8).
+</p>
+</div>
 
 
-
-
-You can use either SFTP or Git to import your code. If you'd like to retain existing Git History, then please see [Migrating Sites to Pantheon: Preserve Existing Git History](/docs/migrate-preserve-history).
-
-### Import Code via SFTP
-Find the **Connection Info** from the Dev environment and use an SFTP client to add your code. You'll want to only add plugins, modules, and themes and not overwrite WordPress or Drupal core. For more information, see [Developing on Pantheon Directly with SFTP Mode](/docs/sftp/).
-
-
-## Step 3: Add Database
+## Add Database
 
 **Database** - a single `.sql` dump that contains the content and active state of the site's configurations.
 
